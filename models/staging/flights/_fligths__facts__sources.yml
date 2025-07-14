@@ -1,0 +1,21 @@
+sources:
+  - name: demo_src
+    description: Факты БД перелетов
+    database: dwh_flight
+    schema: demo_src
+    tables: 
+        - name: boarding_passes
+          description: Посадочные талоны
+        - name: flights
+          freshness: 
+          warn_after:
+            count: 600000
+            period: hour
+          error_after:
+            count: 10000
+            period: day
+          filter: current_timestamp::date - actual_departure::date <30000
+        # changed to config in v1.10
+          loaded_at_field: actual_departure::timestamp
+        - name: ticket_flights
+        - name: tickets

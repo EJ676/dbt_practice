@@ -1,0 +1,32 @@
+sources:
+  - name: demo_src
+    description: Справочники БД перелетов
+    database: dwh_flight
+    schema: demo_src
+    tables:
+      - name: aircrafts
+        description: Модели самолетов
+        columns:
+        - name: aircraft_code
+          description: Код самолета
+        - name: model
+          description: Модель самолета
+        - name: "range"
+          description: дальность полета
+      - name: airports
+      - name: seats
+      - name: bookings
+        columns:
+        - name: book_ref
+        - name: book_date
+        - name: total_amount
+        freshness: 
+          warn_after:
+            count: 600000
+            period: hour
+          error_after:
+            count: 10000
+            period: day
+          filter: current_timestamp::date - book_date::date <30000
+        # changed to config in v1.10
+        loaded_at_field: book_date::timestamp
