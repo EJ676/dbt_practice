@@ -34,3 +34,7 @@ models:
     # Config indicated by + and applies to all files under models/example/
     example:
       +materialized: view
+
+# активация через командную строку в ражиме администратора
+#C:\Users\Esipovich\dbt_course_wd\dbt_practice\.venv\Scripts\activate.bat
+
